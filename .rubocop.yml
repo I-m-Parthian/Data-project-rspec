@@ -1,0 +1,13 @@
+# File to disable some offences of rubocop linter
+inherit_from: ../.rubocop.yml
+
+Style/Encoding:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
