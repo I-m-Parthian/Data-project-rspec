@@ -2,6 +2,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.4.4)
+    gruff (0.12.1)
+      histogram
+      rmagick
+    histogram (0.2.4.1)
+    rmagick (4.2.1)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -20,6 +25,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  gruff (~> 0.12.1)
   rspec (~> 3.0)
 
 RUBY VERSION
