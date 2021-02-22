@@ -49,6 +49,19 @@ def find_rcb_batsman_scores(table_of_teams)
   hash
 end
 
+# Find origin of umpires
+def find_origin(table_of_umpires)
+  ipl_umpires = Hash.new(0)
+  table_of_umpires.each do |table_row|
+    ipl_umpires[table_row['Nationality']] += 1 if table_row['Nationality'] != 'India'
+  end
+  ipl_umpires
+end
+
+# =======================================================
+# Initiate each solution in a sequence
+# =======================================================
+
 # Solution for Problem 1
 table_of_teams = read_csv('deliveries.csv')
 teams_score = total_runs_by_teams(table_of_teams)
@@ -62,3 +75,10 @@ rcb_batsman = find_rcb_batsman_scores(table_of_teams)
 graph_title = 'Total runs of each Batsman of RCB'
 filename = 'result2.png'
 bar_graph(rcb_batsman, graph_title, filename)
+
+# Solution for Problem 3
+table_of_umpires = read_csv('umpires.csv')
+ipl_umpires = find_origin(table_of_umpires)
+graph_title = 'Graph of Umpires of origin'
+filename = 'result3.png'
+bar_graph(ipl_umpires, graph_title, filename)

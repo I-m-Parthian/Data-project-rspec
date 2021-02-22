@@ -43,3 +43,20 @@ describe 'find_rcb_batsman_scores' do
                             'MA Agarwal' => 463)
   end
 end
+
+# Check the hash of IPL umpires and their country of origin
+describe 'find_origin' do
+  it 'should return a hash of umpire names and country' do
+    table = read_csv('umpires.csv')
+    hash = find_origin(table)
+    expect(hash).to be_instance_of Hash
+    expect(hash).to include('Sri Lanka' => 2,
+                            'South Africa' => 5,
+                            'Australia' => 7,
+                            'Pakistan' => 2,
+                            'New Zealand' => 4,
+                            'West Indies' => 1,
+                            'England' => 4,
+                            'Zimbabwe' => 1)
+  end
+end
