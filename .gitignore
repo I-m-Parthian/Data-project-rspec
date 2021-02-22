@@ -1,0 +1,9 @@
+*.png
+*.csv
+**.DS_Store
+
+# Files mandatory to include
+!.gitignore
+!deliveries.csv
+!umpires.csv
+!matches.csv
