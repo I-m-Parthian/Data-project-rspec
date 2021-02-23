@@ -36,9 +36,7 @@ def find_rcb_batsman_scores(table_of_teams)
   rcb_batsman = Hash.new(0)
   # fetch total runs of each batsman of RCB
   table_of_teams.each do |table_row|
-    if table_row['batting_team'] == 'Royal Challengers Bangalore'
-      rcb_batsman[table_row['batsman']] += table_row['total_runs'].to_i
-    end
+    rcb_batsman[table_row['batsman']] += table_row['total_runs'].to_i if table_row['batting_team'] == 'Royal Challengers Bangalore'
   end
   # extract the data of top 10 batsman
   rcb_batsman = rcb_batsman.sort_by { |_name, runs| runs }.reverse
@@ -56,6 +54,39 @@ def find_origin(table_of_umpires)
     ipl_umpires[table_row['Nationality']] += 1 if table_row['Nationality'] != 'India'
   end
   ipl_umpires
+end
+
+# Create a nested Hash in case of problem 4
+def matches_played_by_season(table_of_teams)
+  matches_played = Hash.new { |hash, key| hash[key] = Hash.new(0) }
+
+  table_of_teams.each do |table_row|
+    matches_played[table_row['season']][table_row['team1']] += 1
+    matches_played[table_row['season']][table_row['team2']] += 1
+  end
+  matches_played
+end
+
+# Manipulate data in accordance to graph and Plot it
+def stacked_graph(matches_played, graph_title, filename)
+  hash_for_labels = {}
+  hash_of_teams = Hash.new { |hash, key| hash[key] = [] }
+  matches_played.each_with_index do |(year, _key), idx|
+    hash_for_labels[idx] = year
+    matches_played[year].each do |team, num|
+      hash_of_teams[team].push(num)
+    end
+  end
+  graph = Gruff::StackedBar.new
+  graph.title = graph_title
+  graph.bar_spacing = 0.5
+
+  hash_of_teams.each do |team, matches|
+    graph.data(team, matches)
+  end
+
+  graph.labels = hash_for_labels
+  graph.write(filename)
 end
 
 # =======================================================
@@ -82,3 +113,10 @@ ipl_umpires = find_origin(table_of_umpires)
 graph_title = 'Graph of Umpires of origin'
 filename = 'result3.png'
 bar_graph(ipl_umpires, graph_title, filename)
+
+# Solution for problem 4
+table_of_teams = read_csv('matches.csv')
+matches_played = matches_played_by_season(table_of_teams)
+graph_title = 'Stacked bar chart of number of games played by teams and by season'
+filename = 'result4.png'
+stacked_graph(matches_played, graph_title, filename)

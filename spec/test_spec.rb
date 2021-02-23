@@ -60,3 +60,23 @@ describe 'find_origin' do
                             'Zimbabwe' => 1)
   end
 end
+
+# check for hash of hashes created {Season => {team1 => score,team2=> score}} format
+describe 'matches_played_by_season' do
+  it 'should return a data structure like a 2d hash' do
+    table = read_csv('matches.csv')
+    hash = matches_played_by_season(table)
+    expect(hash).to be_instance_of Hash
+    expect(hash).to include(
+      { '2008' =>
+      { 'Kolkata Knight Riders' => 13,
+        'Royal Challengers Bangalore' => 14,
+        'Chennai Super Kings' => 16,
+        'Kings XI Punjab' => 15,
+        'Rajasthan Royals' => 16,
+        'Delhi Daredevils' => 14,
+        'Mumbai Indians' => 14,
+        'Deccan Chargers' => 14 } }
+    )
+  end
+end
