@@ -1,7 +1,7 @@
 # File to disable some offences of rubocop linter
 
 Style/Encoding:
-  Enabled: false
+  Enabled: true
 Metrics/CyclomaticComplexity:
   Enabled: false
 Metrics/MethodLength:
@@ -12,3 +12,8 @@ Layout/LineLength:
   Enabled: false
 Metrics/AbcSize:
   Enabled: false
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+          
